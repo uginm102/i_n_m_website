@@ -1,4 +1,26 @@
-.buttons-wrapper {
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I&M Bank Help &amp; Support</title>
+    <link rel="icon" type="image/png" href="images/im-logo.png" />
+    <link rel="stylesheet" href="styles.css?v=0.00" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,600&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+
+    <style>
+      /* ---------- BUTTON WRAPPER: ALWAYS ROW DIRECTION (even on mobile) ---------- */
+      .buttons-wrapper {
         display: flex;
         flex-direction: row; /* Force row layout on all screen sizes */
         flex-wrap: wrap; /* Allow wrapping only if absolutely necessary (very small screens, but keeps row behavior) */
@@ -116,7 +138,7 @@
         text-align: center;
       }
 
-      :global(hr) {
+      hr {
         margin: 1.3rem 0 0.5rem;
         border: 0;
         height: 1px;
@@ -225,5 +247,5 @@
           height: 22px;
         }
       }
-      
-  
+    </style>
+  </head>
