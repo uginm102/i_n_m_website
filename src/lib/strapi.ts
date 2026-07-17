@@ -33,6 +33,8 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
       url.search = queryString;
     }
 
+    console.log(`queryString: ${queryString}`);
+
     // Standard headers for Strapi API authentication
     const headers: HeadersInit = {
       'Content-Type': 'application/json',

@@ -6,17 +6,21 @@ import { fetchSingleType } from '@/lib/strapi';
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
 import Links from "@/components/sections/Links";
+import Guides from "@/components/sections/Guides"; 
 
 export default async function SupportPage() {
 const pageData = await fetchSingleType('support-page', {
     // Swap the flat array for an object to control deep population
     populate: {
       header: {
-        populate: ['logo'] // Forces Strapi to look inside header and pull the logo media data
-      },
+      populate: {
+        logo: true,          // ← This is the correct way for media inside a component
+      }
+    },
       hero: '*',   // Populates all first-level fields in your hero component
       footer: '*',  // Populates all first-level fields in your footer component
       links: '*',  // Populates all first-level fields in your links component
+      guides: '*',
     }
   });
 
@@ -35,6 +39,13 @@ const pageData = await fetchSingleType('support-page', {
       <div className="quick-links-wrap">
         <Links links={pageData.links} />
       </div>
+            <section className="section">
+        <h2 className="section-title">Useful Guides</h2>
+        <div className="guides-grid">
+          <Guides guides={pageData.guides} />
+        </div>
+        </section>
+
       
       {/* ... Other sections like QuickLinks, GuidesGrid ... */}
     </main>
