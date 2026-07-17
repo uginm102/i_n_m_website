@@ -1,4 +1,3 @@
-import Image from "next/image";
 import "./page.module.css";
 
 // app/[lang]/page.tsx
@@ -6,6 +5,7 @@ import HeroBanner from '@/components/sections/HeroBanner';
 import { fetchSingleType } from '@/lib/strapi';
 import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
+import Links from "@/components/sections/Links";
 
 export default async function SupportPage() {
 const pageData = await fetchSingleType('support-page', {
@@ -15,7 +15,8 @@ const pageData = await fetchSingleType('support-page', {
         populate: ['logo'] // Forces Strapi to look inside header and pull the logo media data
       },
       hero: '*',   // Populates all first-level fields in your hero component
-      footer: '*'  // Populates all first-level fields in your footer component
+      footer: '*',  // Populates all first-level fields in your footer component
+      links: '*',  // Populates all first-level fields in your links component
     }
   });
 
@@ -31,6 +32,9 @@ const pageData = await fetchSingleType('support-page', {
         searchPlaceholder={pageData.hero.searchPlaceholder} 
         searchButtonText={pageData.hero.searchButtonText} 
       />
+      <div className="quick-links-wrap">
+        <Links links={pageData.links} />
+      </div>
       
       {/* ... Other sections like QuickLinks, GuidesGrid ... */}
     </main>
