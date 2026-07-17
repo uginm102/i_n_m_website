@@ -8,16 +8,22 @@ import Nav from "@/components/nav";
 import Footer from "@/components/Footer";
 
 export default async function SupportPage() {
-  // 1. Fetch the data from Strapi (ensure the 'hero' component is populated)
-  const pageData = await fetchSingleType('support-page', { populate: ['hero'] });
-  const footerData = await fetchSingleType('footer');
-// console.log('Fetched pageData:', pageData);
-console.log('Fetched footerData:', footerData);
-  if (!pageData) return null;
+const pageData = await fetchSingleType('support-page', {
+    // Swap the flat array for an object to control deep population
+    populate: {
+      header: {
+        populate: ['logo'] // Forces Strapi to look inside header and pull the logo media data
+      },
+      hero: '*',   // Populates all first-level fields in your hero component
+      footer: '*'  // Populates all first-level fields in your footer component
+    }
+  });
+
+  if (!pageData) return <div>Failed to load data.</div>;
 
   return (
     <>
-      <Nav />
+      <Nav header={pageData.header} />
        <main className="main-content">
       {/* 2. Map the Strapi data directly to the component's props */}
       <HeroBanner 
@@ -28,7 +34,7 @@ console.log('Fetched footerData:', footerData);
       
       {/* ... Other sections like QuickLinks, GuidesGrid ... */}
     </main>
-    <Footer content = {footerData.content} />
+    <Footer content = {pageData.footer.content} />
    </>
   );
 }
