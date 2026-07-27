@@ -19,6 +19,7 @@ interface FetchOptions {
 async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
   try {
     const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
+    console.log(`Constructed Strapi URL: ${url.toString()}`);
     
     // 1. Gather our query parameters into a single object
     const queryParams: Record<string, any> = {};
@@ -61,13 +62,14 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
     }
 
     const response = await fetch(url.toString(), fetchOptions);
-
+    console.log(`Strapi response status: ${response.status}`);
     if (!response.ok) {
       throw new Error(`Strapi HTTP error! status: ${response.status}`);
     }
 
     const json = await response.json();
-    
+    console.log(`Strapi response data: ${JSON.stringify(json)}`);
+
     return json.data;
   } catch (error) {
     console.error(`Failed to fetch from Strapi endpoint "${endpoint}":`, error);
