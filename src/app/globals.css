@@ -295,7 +295,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
-  max-width: 220px;
+  /* max-width: 220px; */
   margin: 0 auto;
 }
 
@@ -305,6 +305,7 @@ ul {
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: block;
+  max-width: 220px;
   transition:
     border-color 0.15s,
     transform 0.15s,
