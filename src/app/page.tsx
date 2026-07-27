@@ -47,7 +47,6 @@ const pageData = await fetchSingleType('support-page', {
         </section>
 
       
-      {/* ... Other sections like QuickLinks, GuidesGrid ... */}
     </main>
     <Footer content = {pageData?.footer?.content} />
    </>
