@@ -295,7 +295,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
-  max-width: 900px;
+  max-width: 220px;
   margin: 0 auto;
 }
 
