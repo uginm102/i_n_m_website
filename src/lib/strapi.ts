@@ -19,7 +19,7 @@ interface FetchOptions {
 async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
   try {
     const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
-    console.log(`Constructed Strapi URL: ${url.toString()}`);
+    // console.log(`Constructed Strapi URL: ${url.toString()}`);
     
     // 1. Gather our query parameters into a single object
     const queryParams: Record<string, any> = {};
@@ -34,7 +34,7 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
       url.search = queryString;
     }
 
-    console.log(`queryString: ${queryString}`);
+    //console.log(`queryString: ${queryString}`);
 
     // Standard headers for Strapi API authentication
     const headers: HeadersInit = {
@@ -45,7 +45,7 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
       headers['Authorization'] = `Bearer ${STRAPI_TOKEN}`;
     }
 
-    console.log(`Fetching Strapi endpoint: ${url.toString()}`);
+    //console.log(`Fetching Strapi endpoint: ${url.toString()}`);
 
     // Configure Next.js-specific fetch parameters (Caching & Revalidation)
     const fetchOptions: RequestInit = {
@@ -68,7 +68,7 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
     }
 
     const json = await response.json();
-    console.log(`Strapi response data: ${JSON.stringify(json)}`);
+    //console.log(`Strapi response data: ${JSON.stringify(json)}`);
 
     return json.data;
   } catch (error) {
@@ -87,3 +87,22 @@ export async function fetchSingleType(uid: string, options: FetchOptions = {}) {
 
   return data;
 }
+
+export async function getServiceBySlug(slug: string) {
+  const data = await fetchStrapi("services", {
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: {
+      service: {
+        populate: "*",
+      },
+    },
+  });
+
+  // filters always return an array
+  return data?.[0] || null;
+}
+
