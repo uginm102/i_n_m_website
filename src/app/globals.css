@@ -214,7 +214,7 @@ ul {
   background: transparent;
   font-size: 14px;
   font-family: var(--font-body);
-  color: var(--c-text-primary);
+  color: #0f212f;;
 }
 .search-bar input::placeholder {
   color: var(--c-text-tertiary);
@@ -295,7 +295,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
-  /* max-width: 220px; */
+  max-width: 900px;
   margin: 0 auto;
 }
 
