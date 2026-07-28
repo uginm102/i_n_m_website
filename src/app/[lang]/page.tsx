@@ -17,7 +17,6 @@ type Props = {
 
 export default async function SupportPage({ params }: Props) {
   const { lang = "en" } = await params;
-  console.log("Fetching support page data for language: ", lang);
   const pageData = await fetchSingleType("support-page", {
     // Swap the flat array for an object to control deep population
     populate: {
