@@ -9,9 +9,7 @@ type Props = {
 };
 
 export default async function ServicesPage({ params }: Props) {
-    console.log("Fetching service page data from Strapi...");
   const { lang, category } = await params;
-  console.log("Params:", { lang, category });
 
   const service = await getServiceBySlug(category);
 
