@@ -12,7 +12,7 @@ export default async function ServicesPage({ params }: Props) {
   const { lang, category } = await params;
 
   const service = await getServiceBySlug(category);
-
+console.log("Service data:", service); // Debugging line to check the fetched service data
   if (!service) {
     return <div>Service not found</div>;
   }
@@ -58,6 +58,7 @@ export default async function ServicesPage({ params }: Props) {
               title={item.title}
               description={item.description}
               iconClass={item.iconClass}
+              slug={service.slug}
               links={item.services || []}
               defaultOpen={index === 0} // first one open by default
             />

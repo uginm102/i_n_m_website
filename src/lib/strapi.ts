@@ -106,3 +106,23 @@ export async function getServiceBySlug(slug: string) {
   return data?.[0] || null;
 }
 
+export async function getServiceGuideBySlug(slug: string, locale: string = "en") {
+  const data = await fetchStrapi("service-guides", {
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: {
+      steps: {
+        populate: {
+          screenshot: true,
+        },
+      },
+    },
+    locale,
+  });
+
+  // filters always return an array
+  return data?.[0] || null;
+}

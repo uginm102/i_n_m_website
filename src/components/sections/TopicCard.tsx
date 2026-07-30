@@ -15,7 +15,9 @@ type Props = {
   description: string;
   iconClass?: string;
   links?: ServiceLink[];
+  slug?: string;
   defaultOpen?: boolean;
+  lang?: string; // Optional lang prop for future use
 };
 
 export default function TopicCard({
@@ -23,9 +25,11 @@ export default function TopicCard({
   description,
   iconClass,
   links = [],
+  slug,
   defaultOpen = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  console.log("TopicCard props:", { title, description, iconClass, links, slug, defaultOpen }); // Debugging line to check the props
 
   return (
     <div className="topic-card">
@@ -52,8 +56,9 @@ export default function TopicCard({
       <div className={`topic-body ${isOpen ? "open" : ""}`}>
         <ul className="topic-links">
           {links.map((link, index) => (
+            
             <li key={index}>
-              <Link href={link.url || `#`}>{link.label}</Link>
+              <Link href={slug ? `/en/services/${slug}/${link?.slug}` : `#${link?.slug}`}>{link.label}</Link>
             </li>
           ))}
         </ul>
