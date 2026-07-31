@@ -20,9 +20,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   // Fetch the specific Service Guide
   const guide = await getServiceGuideBySlug(slug, lang);
 
-  if (!guide) {
-    notFound();
-  }
+  
 
   // Fetch header & footer
   const pageData = await fetchSingleType("support-page", {
@@ -36,6 +34,31 @@ export default async function ServiceDetailPage({ params }: Props) {
     },
     locale: lang,
   });
+if (!guide) {
+  return (
+    <>
+      <Nav header={pageData?.header} />
+
+      <div className="page-layout">
+        <main className="page-main">
+          <div className="not-available">
+            <div className="not-available-card">
+              <i className="ti ti-language-off" style={{ fontSize: 36, marginBottom: 16 }}></i>
+              <h1>Content not available</h1>
+              <p>This guide is not available in this language yet.</p>
+
+              <Link href={`/${lang}/services/${category}`} className="back-link">
+                ← Back to category
+              </Link>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <Footer content={pageData?.footer?.content} />
+    </>
+  );
+}
 
   return (
     <>

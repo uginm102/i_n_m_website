@@ -11,11 +11,10 @@ type Props = {
 export default async function ServicesPage({ params }: Props) {
   const { lang, category } = await params;
 
-  const service = await getServiceBySlug(category);
-console.log("Service data:", service); // Debugging line to check the fetched service data
-  if (!service) {
-    return <div>Service not found</div>;
-  }
+  const service = await getServiceBySlug(category, lang);
+  // if (!service) {
+  //   return <div>Service not found</div>;
+  // }
 
   const pageData = await fetchSingleType("support-page", {
     // Swap the flat array for an object to control deep population
@@ -27,8 +26,33 @@ console.log("Service data:", service); // Debugging line to check the fetched se
       },
       footer: "*", // Populates all first-level fields in your footer component
     },
+    locale: lang,
   });
+if (!service) {
+  return (
+    <>
+      <Nav header={pageData?.header} />
 
+      <div className="page-layout">
+        <main className="page-main">
+          <div className="not-available">
+            <div className="not-available-card">
+              <i className="ti ti-language-off" style={{ fontSize: 36, marginBottom: 16 }}></i>
+              <h1>Content not available</h1>
+              <p>This service is not available in this language yet.</p>
+
+              <Link href={`/${lang}`} className="back-link">
+                ← Back to support page
+              </Link>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <Footer content={pageData?.footer?.content} />
+    </>
+  );
+}
   if (!pageData) return <div>Failed to load data.</div>;
 
   return (
@@ -44,25 +68,38 @@ console.log("Service data:", service); // Debugging line to check the fetched se
           className="ti ti-chevron-right breadcrumb-sep"
           aria-hidden="true"
         ></i>
-        <span className="breadcrumb-current">{service.title}</span>
+        <span className="breadcrumb-current">{service?.title}</span>
       </div>
 
       <div className="page-layout">
         <main className="page-main">
-          <h1 className="page-heading">{service.title}</h1>
+          {service?.service && service.service.length > 0 ? (
+            <>
+              <h1 className="page-heading">{service.title}</h1>
 
-          {/* Dynamic Topic Cards */}
-           {service.service?.map((item: any, index: number) => (
-            <TopicCard
-              key={item.id || index}
-              title={item.title}
-              description={item.description}
-              iconClass={item.iconClass}
-              slug={service.slug}
-              links={item.services || []}
-              defaultOpen={index === 0} // first one open by default
-            />
-          ))}
+              {service.service.map((item: any, index: number) => (
+                <TopicCard
+                  key={item.id || index}
+                  title={item.title}
+                  description={item.description}
+                  iconClass={item.iconClass}
+                  slug={service.slug}
+                  links={item.services || []}
+                  defaultOpen={index === 0}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="no-services">
+              <div className="no-services-card">
+                <i
+                  className="ti ti-folder-off"
+                  style={{ fontSize: 32, marginBottom: 12 }}
+                ></i>
+                <p>No services available for this category.</p>
+              </div>
+            </div>
+          )}
         </main>
 
         {/* Aside */}

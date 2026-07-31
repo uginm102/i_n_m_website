@@ -1,5 +1,11 @@
 'use client';
 
+import { getLocales } from "@/lib/strapi";
+import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSelector from "./LanguageSelector";
+
+const locales = await getLocales();
+
 export default function Nav({header}: {header: any}) {
   return (
     <nav className="nav">
@@ -10,6 +16,12 @@ export default function Nav({header}: {header: any}) {
           style={{ height: "50px", width: "auto", marginTop: "5px" }}
         />
       </a>
+
+      <div className="nav-right">
+        {/* existing links */}
+        <LanguageSwitcher locales={locales}/>
+        {/* <LanguageSelector lang="en" /> */}
+      </div>
     </nav>
   );
 }

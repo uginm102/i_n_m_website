@@ -33,7 +33,7 @@ async function fetchStrapi(endpoint: string, options: FetchOptions = {}) {
     if (queryString) {
       url.search = queryString;
     }
-
+console.log(`Constructed Strapi URL: ${url.toString()}`);
     //console.log(`queryString: ${queryString}`);
 
     // Standard headers for Strapi API authentication
@@ -88,7 +88,7 @@ export async function fetchSingleType(uid: string, options: FetchOptions = {}) {
   return data;
 }
 
-export async function getServiceBySlug(slug: string) {
+export async function getServiceBySlug(slug: string, locale: string = "en") {
   const data = await fetchStrapi("services", {
     filters: {
       slug: {
@@ -100,6 +100,7 @@ export async function getServiceBySlug(slug: string) {
         populate: "*",
       },
     },
+    locale,
   });
 
   // filters always return an array
@@ -125,4 +126,27 @@ export async function getServiceGuideBySlug(slug: string, locale: string = "en")
 
   // filters always return an array
   return data?.[0] || null;
+}
+
+export async function getLocales() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/i18n/locales`,
+      {
+        // Do NOT send Authorization header here
+        next: { revalidate: 3600 },
+      }
+    );
+
+    if (!res.ok) {
+      console.error("Failed to fetch locales:", res.status);
+      return [];
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch locales:", error);
+    return [];
+  }
 }

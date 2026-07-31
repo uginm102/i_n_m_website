@@ -29,7 +29,6 @@ export default function TopicCard({
   defaultOpen = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
-  console.log("TopicCard props:", { title, description, iconClass, links, slug, defaultOpen }); // Debugging line to check the props
 
   return (
     <div className="topic-card">

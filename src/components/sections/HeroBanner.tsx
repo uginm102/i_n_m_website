@@ -42,13 +42,9 @@ export default function HeroBanner({
   };
 
   return (
-    // The main blue container section
     
-    // HERO
       <section className="hero">
-        <h1 className="hero-title">
-          Good Evening! Welcome to I&M Help &amp; Support
-        </h1>
+        <h1 className="hero-title"> {title} </h1>
         <form onSubmit={handleSearch}>
         <div className="search-bar">
           <i className="ti ti-search" aria-hidden="true"></i>
@@ -58,9 +54,7 @@ export default function HeroBanner({
                onChange={(e) => setQuery(e.target.value)} // Update state on change
                placeholder={searchPlaceholder}
              />
-          <button className="search-btn" type="submit">
-            Search
-          </button>
+          <button className="search-btn" type="submit">{searchButtonText} </button>
         </div>
         </form>
       </section>

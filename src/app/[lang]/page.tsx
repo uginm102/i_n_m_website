@@ -2,7 +2,6 @@ import "@/styles/page.module.css";
 import "@/styles/app-store.css";
 
 // app/[lang]/page.tsx
-import type { Metadata } from "next";
 import HeroBanner from "@/components/sections/HeroBanner";
 import { fetchSingleType } from "@/lib/strapi";
 import Nav from "@/components/Nav";
@@ -30,8 +29,9 @@ export default async function SupportPage({ params }: Props) {
       links: "*", // Populates all first-level fields in your links component
       guides: "*",
     },
+    locale: lang,
   });
-
+console.log("Support Page Data:", pageData); // Debugging line to check the fetched data
   if (!pageData) return <div>Failed to load data.</div>;
 
   return (
