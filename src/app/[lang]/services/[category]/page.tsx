@@ -153,7 +153,7 @@ if (!service) {
         </aside>
       </div>
 
-      <Footer content={pageData?.footer?.content} />
+      <Footer content={pageData?.footer?.content?? ""} />
     </>
   );
 }

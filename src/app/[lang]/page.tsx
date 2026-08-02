@@ -112,7 +112,7 @@ console.log("Support Page Data:", pageData); // Debugging line to check the fetc
           </div>
         </div>
       </main>
-      <Footer content={pageData?.footer?.content} />
+      <Footer content={pageData?.footer?.content?? ""} />
     </>
   );
 }

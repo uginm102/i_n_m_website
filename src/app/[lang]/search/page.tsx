@@ -80,7 +80,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
           </div>
         </main>
       </div>
-      <Footer content={pageData?.footer?.content} />
+      <Footer content={pageData?.footer?.content?? ""} />
     </>
   );
 }
