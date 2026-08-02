@@ -1258,3 +1258,141 @@ a:not(.quick-link):hover {
 .back-link:hover {
   text-decoration: underline;
 }
+
+/* ===========================
+   SEARCH PAGE
+   =========================== */
+.search-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.search-header .page-heading {
+  margin-bottom: 8px;
+}
+
+.search-subtitle {
+  color: var(--c-text-secondary);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.search-bar-wrapper {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.empty-icon .ti {
+  font-size: 28px;
+  color: #94a3b8;
+}
+
+.empty-state h2 {
+  font-size: 20px;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1e40af;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Results */
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-result-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.search-result-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 4px 16px rgba(30, 64, 175, 0.08);
+  transform: translateY(-1px);
+}
+
+.result-category {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.search-result-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 17px;
+  color: #1e3a8a;
+}
+
+.search-result-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.result-arrow {
+  font-size: 18px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.search-result-card:hover .result-arrow {
+  color: #1e40af;
+}

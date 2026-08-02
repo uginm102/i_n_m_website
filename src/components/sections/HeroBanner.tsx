@@ -1,18 +1,17 @@
 // @/components/sections/HeroBanner.tsx
-'use client';
+"use client";
 
-import { useState } from 'react';
-// If you are using Next.js routing, import useRouter to redirect on search
-// import { useRouter } from 'next/navigation'; 
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 /**
  * TypeScript definitions for the data this component receives.
  * This structure should match your Strapi 'sections.hero-banner' component schema.
  */
 interface HeroBannerProps {
-  title: string;             // e.g., "Good Evening! Welcome to I&M Help & Support"
+  title: string; // e.g., "Good Evening! Welcome to I&M Help & Support"
   searchPlaceholder: string; // e.g., "How can we help?"
-  searchButtonText: string;  // e.g., "Search"
+  searchButtonText: string; // e.g., "Search"
 }
 
 /**
@@ -23,40 +22,48 @@ export default function HeroBanner({
   searchPlaceholder,
   searchButtonText,
 }: HeroBannerProps) {
+  const router = useRouter();
+  const params = useParams();
+  // router.push(`/en/search?q=${encodeURIComponent("test")}`);
   // 1. Manage the search query state locally
-  const [query, setQuery] = useState('');
-  
-  // const router = useRouter(); // Initialize router for navigation (optional)
+  const [query, setQuery] = useState("");
+  const lang = (params?.lang as string) || "en";
+  const handleSearch = (e?: React.FormEvent<HTMLFormElement>) => {
+    // const q = query.trim();
+    // console.log("Searching for:", q); // Debugging log
+    // if (!q) return;
+    // //router.push(`/${lang}/search?q=${encodeURIComponent(q)}`);
 
-  // 2. Handle the form submission (when user clicks Search or presses Enter)
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (query.trim() === '') return; // Don't search if the input is empty
-
-    console.log(`Searching for: "${query}"`);
-    
-    // INTEGRATION POINT: This is where you connect to your search solution.
-    // Examples:
-    // A) Route to a search results page: router.push(`/support/search?q=${encodeURIComponent(query)}`);
-    // B) Call an API directly to filter results: callMySearchApi(query);
+    e?.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    router.push(`/${lang}/search?q=${encodeURIComponent(q)}`);
   };
 
   return (
-    
-      <section className="hero">
-        <h1 className="hero-title"> {title} </h1>
-        <form onSubmit={handleSearch}>
+    <section className="hero">
+      <h1 className="hero-title"> {title} </h1>
+      <form onSubmit={handleSearch}>
         <div className="search-bar">
           <i className="ti ti-search" aria-hidden="true"></i>
-                       <input
-               type="text"
-               value={query}
-               onChange={(e) => setQuery(e.target.value)} // Update state on change
-               placeholder={searchPlaceholder}
-             />
-          <button className="search-btn" type="submit">{searchButtonText} </button>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              console.log("Input changed:", e.target.value); // Debugging log
+              setQuery(e.target.value);
+            }} // Update state on change
+            placeholder={searchPlaceholder}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
+          />
+
+          <button className="search-btn" type="submit">
+            {searchButtonText}{" "}
+          </button>
         </div>
-        </form>
-      </section>
+      </form>
+    </section>
   );
 }

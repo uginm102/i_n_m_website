@@ -2,6 +2,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type Locale = {
   code: string;
@@ -16,6 +17,18 @@ type Props = {
 export default function LanguageSwitcher({ locales }: Props) {
   const pathname = usePathname();
   const router = useRouter();
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Return a skeleton, a default server-safe UI, or null until mounted
+  if (!mounted) {
+    return <div className="lang-selector fallback">...</div>; 
+    // Make sure this fallback exactly matches what the server renders!
+  }
 
   const currentLang = pathname.split("/")[1] || "en";
 
