@@ -55,7 +55,7 @@ if (!guide) {
         </main>
       </div>
 
-      <Footer content={pageData?.footer?.content} />
+      <Footer content={pageData?.footer?.content?? ""} />
     </>
   );
 }

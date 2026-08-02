@@ -1,6 +1,6 @@
 // 'use client';
 import type { Metadata } from "next";
-import { fetchSingleType } from "@/lib/strapi";
+import { fetchSingleType, type SupportPage } from "@/lib/strapi";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 
@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageData = await fetchSingleType("support-page", {
+  const pageData = await fetchSingleType<SupportPage>("support-page", {
     populate: {
       header: {
         populate: {
