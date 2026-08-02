@@ -48,6 +48,7 @@ export default function HeroBanner({
           <i className="ti ti-search" aria-hidden="true"></i>
           <input
             type="text"
+            name="search"
             value={query}
             onChange={(e) => {
               console.log("Input changed:", e.target.value); // Debugging log

@@ -1,5 +1,5 @@
 // app/[lang]/services/[category]/[slug]/page.tsx
-import { getServiceGuideBySlug, fetchSingleType } from "@/lib/strapi";
+import { getServiceGuideBySlug, fetchSingleType, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ServiceGuide from "@/components/sections/ServiceGuide";
@@ -23,7 +23,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   
 
   // Fetch header & footer
-  const pageData = await fetchSingleType("support-page", {
+  const pageData = await fetchSingleType<SupportPage>("support-page", {
     populate: {
       header: {
         populate: {

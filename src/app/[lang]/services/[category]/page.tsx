@@ -1,4 +1,4 @@
-import { fetchSingleType, getServiceBySlug } from "@/lib/strapi";
+import { fetchSingleType, getServiceBySlug, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import TopicCard from "@/components/sections/TopicCard";
@@ -16,7 +16,7 @@ export default async function ServicesPage({ params }: Props) {
   //   return <div>Service not found</div>;
   // }
 
-  const pageData = await fetchSingleType("support-page", {
+  const pageData = await fetchSingleType<SupportPage>("support-page", {
     // Swap the flat array for an object to control deep population
     populate: {
       header: {

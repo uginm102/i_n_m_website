@@ -3,7 +3,7 @@ import "@/styles/app-store.css";
 
 // app/[lang]/page.tsx
 import HeroBanner from "@/components/sections/HeroBanner";
-import { fetchSingleType } from "@/lib/strapi";
+import { fetchSingleType, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
 
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ type Props = {
 
 export default async function SupportPage({ params }: Props) {
   const { lang = "en" } = await params;
-  const pageData = await fetchSingleType("support-page", {
+  const pageData = await fetchSingleType<SupportPage>("support-page", {
     // Swap the flat array for an object to control deep population
     populate: {
       header: {
