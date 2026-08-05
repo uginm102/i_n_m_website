@@ -28,10 +28,11 @@ export default async function SupportPage({ params }: Props) {
       footer: "*", // Populates all first-level fields in your footer component
       links: "*", // Populates all first-level fields in your links component
       guides: "*",
+      popularArticles: "*", // Populates all first-level fields in your popularArticles component
     },
     locale: lang,
   });
-console.log("Support Page Data:", pageData); // Debugging line to check the fetched data
+  //console.log("Support Page Data:", pageData); // Debugging line to check the fetched data
   if (!pageData) return <div>Failed to load data.</div>;
 
   return (
@@ -48,7 +49,7 @@ console.log("Support Page Data:", pageData); // Debugging line to check the fetc
           <Links links={pageData.links} lang={lang} />
         </div>
         <section className="section">
-          <h2 className="section-title">Useful Guides</h2>
+          <h2 className="section-title">{pageData.guidesTitle}</h2>
           <div className="guides-grid">
             <Guides guides={pageData.guides} />
           </div>
@@ -58,18 +59,30 @@ console.log("Support Page Data:", pageData); // Debugging line to check the fetc
           <div className="popular-inner">
             <h3 className="popular-heading">Popular Articles</h3>
             <div className="popular-chips">
-              <a href="im-mobile-money.html" className="chip">
-                <i className="ti ti-arrow-right"></i>Mobile Money
+              {pageData.popularArticles.map((article, index) => (
+                <a
+                  key={index}
+                  href={article.url}
+                  className="chip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ti ti-arrow-right"></i>Mobile Money
+              </a>
+              ))}
+              {/* <a href="im-mobile-money.html" className="chip">
+                <i className="ti ti-arrow-right"></i>Mobile Money1
               </a>
               <a href="im-eft-rtgs.html" className="chip">
                 <i className="ti ti-arrow-right"></i>EFT / RTGS
               </a>
               <a href="im-international-transfers.html" className="chip">
-                <i className="ti ti-arrow-right"></i>International Transfers (TTs)
+                <i className="ti ti-arrow-right"></i>International Transfers
+                (TTs)
               </a>
               <a href="im-ura-payment.html" className="chip">
                 <i className="ti ti-arrow-right"></i>URA Payment
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
@@ -112,7 +125,7 @@ console.log("Support Page Data:", pageData); // Debugging line to check the fetc
           </div>
         </div>
       </main>
-      <Footer content={pageData?.footer?.content?? ""} />
+      <Footer content={pageData?.footer?.content ?? ""} />
     </>
   );
 }

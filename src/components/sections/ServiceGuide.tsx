@@ -27,7 +27,7 @@ export default function ServiceGuide({
 }: Props) {
   // Sort steps by order
   const sortedSteps = [...steps].sort(
-    (a, b) => (a.order || 0) - (b.order || 0)
+    (a, b) => (a.order || 0) - (b.order || 0),
   );
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -74,9 +74,7 @@ export default function ServiceGuide({
     <>
       <h1 className="page-heading">{title}</h1>
 
-      {shortDescription && (
-        <p className="article-intro">{shortDescription}</p>
-      )}
+      {shortDescription && <p className="article-intro">{shortDescription}</p>}
 
       <div className="article-grid">
         {/* ── PHONE CAROUSEL ── */}

@@ -24,15 +24,10 @@ export default function HeroBanner({
 }: HeroBannerProps) {
   const router = useRouter();
   const params = useParams();
-  // router.push(`/en/search?q=${encodeURIComponent("test")}`);
   // 1. Manage the search query state locally
   const [query, setQuery] = useState("");
   const lang = (params?.lang as string) || "en";
   const handleSearch = (e?: React.FormEvent<HTMLFormElement>) => {
-    // const q = query.trim();
-    // console.log("Searching for:", q); // Debugging log
-    // if (!q) return;
-    // //router.push(`/${lang}/search?q=${encodeURIComponent(q)}`);
 
     e?.preventDefault();
     const q = query.trim();
@@ -50,10 +45,7 @@ export default function HeroBanner({
             type="text"
             name="search"
             value={query}
-            onChange={(e) => {
-              console.log("Input changed:", e.target.value); // Debugging log
-              setQuery(e.target.value);
-            }} // Update state on change
+            onChange={(e) => setQuery(e.target.value)} // Update state on change
             placeholder={searchPlaceholder}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch();

@@ -21,6 +21,21 @@ export type Header = {
   };
 };
 
+export type Link = {
+  label: string;
+  slug: string;
+  iconClass?: string;
+  url?: string;
+};
+
+export type Guide = {
+  url: string;
+  iconClass?: string;
+  tag?: string;
+  title: string;
+  description?: string;
+};
+
 export type SupportPage = {
   header?: Header;
   hero: {
@@ -28,30 +43,17 @@ export type SupportPage = {
     searchPlaceholder: string;
     searchButtonText: string;
   };
+  links: Link[];
+  guidesTitle?: string;
+  guides: Guide[];
+  popularArticles: Link[],
   footer?: {
     content?: string;
   };
-  links: Array<{
-    label: string;
-    slug: string;
-    iconClass?: string;
-  }>;
-  guides: Array<{
-    url: string;
-    iconClass?: string;
-    tag?: string;
-    title: string;
-    description?: string;
-  }>;
 };
 
 export type SupportPageShell = Pick<SupportPage, "header" | "footer">;
 
-type ServiceLink = {
-  label: string;
-  slug?: string;
-  url?: string;
-};
 
 export type ServiceCategory = {
   title: string;
@@ -61,7 +63,7 @@ export type ServiceCategory = {
     title?: string;
     description?: string;
     iconClass?: string;
-    services?: ServiceLink[];
+    services?: Link[];
   }>;
 };
 
@@ -119,6 +121,7 @@ async function fetchStrapi<T>(
 
     const queryString = qs.stringify(queryParams, { encodeValuesOnly: true });
     if (queryString) url.search = queryString;
+    console.log(`Fetching Strapi endpoint: ${url.toString()}`); // Debugging line to check the URL
 
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (STRAPI_TOKEN) headers.Authorization = `Bearer ${STRAPI_TOKEN}`;
@@ -131,9 +134,9 @@ async function fetchStrapi<T>(
         options.cache === "no-store"
           ? undefined
           : {
-              revalidate: options.revalidate ?? DEFAULT_REVALIDATE_SECONDS,
-              tags: options.tags ?? [`strapi:${endpoint}`],
-            },
+            revalidate: options.revalidate ?? DEFAULT_REVALIDATE_SECONDS,
+            tags: options.tags ?? [`strapi:${endpoint}`],
+          },
     });
 
     if (!response.ok) {
@@ -202,7 +205,7 @@ type SearchCategory = Pick<ServiceCategory, "title" | "slug"> & {
   service?: Array<{
     title?: string;
     description?: string;
-    services?: ServiceLink[];
+    services?: Link[];
   }>;
 };
 
