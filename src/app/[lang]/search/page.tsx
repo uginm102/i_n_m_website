@@ -20,7 +20,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <Nav header={pageData?.header} />
+      <Nav header={pageData?.header} lang={lang} />
       <div className="page-layout">
         <main className="page-main">
           <div className="search-page">
