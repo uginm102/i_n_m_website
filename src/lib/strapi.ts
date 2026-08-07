@@ -35,7 +35,16 @@ export type Guide = {
   title: string;
   description?: string;
 };
-
+export type MobileAppDownload = {
+  title: string;
+  infoText?: string;
+  appStoreUrl: string;
+  appStorePrefix: string;
+  appStoreLabel: string;
+  playStoreUrl: string;
+  playStorePrefix: string;
+  playStoreLabel: string;
+};
 export type SupportPage = {
   header?: Header;
   hero: {
@@ -47,6 +56,7 @@ export type SupportPage = {
   guidesTitle?: string;
   guides: Guide[];
   popularArticles: Link[],
+  mobileAppDownload?: MobileAppDownload;
   footer?: {
     content?: string;
   };
@@ -54,17 +64,17 @@ export type SupportPage = {
 
 export type SupportPageShell = Pick<SupportPage, "header" | "footer">;
 
-
+export type Service = {
+  id?: number;
+  title: string;
+  description?: string;
+  iconClass?: string;
+  services?: Link[];
+};
 export type ServiceCategory = {
   title: string;
   slug: string;
-  service?: Array<{
-    id?: number;
-    title?: string;
-    description?: string;
-    iconClass?: string;
-    services?: Link[];
-  }>;
+  service?: Service[];
 };
 
 export type GuideStep = {

@@ -21,6 +21,7 @@ export default function LanguageSwitcher({ locales }: Props) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional hydration gate
     setMounted(true);
   }, []);
 

@@ -1,7 +1,7 @@
 // 'use client';
 import type { Metadata } from "next";
 import { fetchSingleType, type SupportPage } from "@/lib/strapi";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, DM_Sans, DM_Serif_Display } from "next/font/google";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -12,6 +12,21 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Configure DM Sans
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+// Configure DM Serif Display
+const dmSerifDisplay = DM_Serif_Display({
+  variable: "--font-dm-serif",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,17 +58,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+   <html 
+      lang="en" 
+      className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${dmSerifDisplay.variable}`}
+    >
       <head>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,600&family=DM+Serif+Display&display=swap"
-          rel="stylesheet"
-        />
+        
       </head>
 
       <body>{children}</body>

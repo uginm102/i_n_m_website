@@ -1,26 +1,27 @@
-'use client';
+//'use client';
 
-import { getLocales } from "@/lib/strapi";
+import { getLocales, Header } from "@/lib/strapi";
 import LanguageSwitcher from "./LanguageSwitcher";
-import LanguageSelector from "./LanguageSelector";
+import Link from "next/link";
+import Image from "next/image";
 
 const locales = await getLocales();
 
-export default function Nav({header}: {header: any}) {
+export default function Nav({header, lang}: {header?: Header; lang: string}) {
   return (
     <nav className="nav">
-      <a href="/" className="logo-img">
-        <img
+      <Link href={`/${lang}`} className="logo-img">
+        <Image
           src={process.env.NEXT_PUBLIC_STRAPI_API_URL + (header?.logo?.url??'#')}
           alt="I&M Logo"
           style={{ height: "50px", width: "auto", marginTop: "5px" }}
+          width={100}
+          height={50}
         />
-      </a>
+      </Link>
 
       <div className="nav-right">
-        {/* existing links */}
         <LanguageSwitcher locales={locales}/>
-        {/* <LanguageSelector lang="en" /> */}
       </div>
     </nav>
   );

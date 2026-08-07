@@ -4,7 +4,6 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ServiceGuide from "@/components/sections/ServiceGuide";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{
@@ -62,7 +61,7 @@ if (!guide) {
 
   return (
     <>
-      <Nav header={pageData?.header} />
+     <Nav header={pageData?.header} lang={lang} />
 
       {/* Breadcrumb */}
       <div className="breadcrumb-bar">

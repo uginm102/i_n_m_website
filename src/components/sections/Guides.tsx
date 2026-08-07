@@ -1,4 +1,6 @@
-export default function Links({guides}: {guides: any[]}) {
+import { Guide } from "@/lib/strapi";
+
+export default function Links({guides}: {guides: Guide[]}) {
 return (
     guides.map((guide, index) => (
 

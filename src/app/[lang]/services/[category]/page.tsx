@@ -1,4 +1,4 @@
-import { fetchSingleType, getServiceBySlug, type SupportPage } from "@/lib/strapi";
+import { fetchSingleType, getServiceBySlug, Service, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import TopicCard from "@/components/sections/TopicCard";
@@ -12,9 +12,7 @@ export default async function ServicesPage({ params }: Props) {
   const { lang, category } = await params;
 
   const service = await getServiceBySlug(category, lang);
-  // if (!service) {
-  //   return <div>Service not found</div>;
-  // }
+
 
   const pageData = await fetchSingleType<SupportPage>("support-page", {
     // Swap the flat array for an object to control deep population
@@ -28,10 +26,12 @@ export default async function ServicesPage({ params }: Props) {
     },
     locale: lang,
   });
+  console.log("lang:", lang);
+  console.log("service:", service);
 if (!service) {
   return (
     <>
-      <Nav header={pageData?.header} />
+      <Nav header={pageData?.header} lang={lang} />
 
       <div className="page-layout">
         <main className="page-main">
@@ -57,7 +57,7 @@ if (!service) {
 
   return (
     <>
-      <Nav header={pageData.header} />
+      <Nav header={pageData?.header} lang={lang} />
 
       {/* Breadcrumb */}
       <div className="breadcrumb-bar">
@@ -77,7 +77,7 @@ if (!service) {
             <>
               <h1 className="page-heading">{service.title}</h1>
 
-              {service.service.map((item: any, index: number) => (
+              {service.service.map((item: Service, index: number) => (
                 <TopicCard
                   key={item.id || index}
                   title={item.title}

@@ -12,7 +12,7 @@ type ServiceLink = {
 
 type Props = {
   title: string;
-  description: string;
+  description?: string;
   iconClass?: string;
   links?: ServiceLink[];
   slug?: string;

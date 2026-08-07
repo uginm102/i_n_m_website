@@ -1,7 +1,7 @@
+// app/[lang]/page.tsx
 import "@/styles/page.module.css";
 import "@/styles/app-store.css";
 
-// app/[lang]/page.tsx
 import HeroBanner from "@/components/sections/HeroBanner";
 import { fetchSingleType, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
@@ -9,6 +9,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Links from "@/components/sections/Links";
 import Guides from "@/components/sections/Guides";
+import MobileAppDownload from "@/components/sections/MobileAppDownload";
 
 type Props = {
   params: Promise<{ lang: string }>;
@@ -29,6 +30,7 @@ export default async function SupportPage({ params }: Props) {
       links: "*", // Populates all first-level fields in your links component
       guides: "*",
       popularArticles: "*", // Populates all first-level fields in your popularArticles component
+      mobileAppDownload: "*", // Populates all first-level fields in your mobileAppDownload component
     },
     locale: lang,
   });
@@ -37,7 +39,7 @@ export default async function SupportPage({ params }: Props) {
 
   return (
     <>
-      <Nav header={pageData.header} />
+      <Nav header={pageData?.header} lang={lang} />
       <main className="main-content">
         {/* 2. Map the Strapi data directly to the component's props */}
         <HeroBanner
@@ -67,63 +69,24 @@ export default async function SupportPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i className="ti ti-arrow-right"></i>Mobile Money
-              </a>
+                  <i className="ti ti-arrow-right"></i>{article.label}
+                </a>
               ))}
-              {/* <a href="im-mobile-money.html" className="chip">
-                <i className="ti ti-arrow-right"></i>Mobile Money1
-              </a>
-              <a href="im-eft-rtgs.html" className="chip">
-                <i className="ti ti-arrow-right"></i>EFT / RTGS
-              </a>
-              <a href="im-international-transfers.html" className="chip">
-                <i className="ti ti-arrow-right"></i>International Transfers
-                (TTs)
-              </a>
-              <a href="im-ura-payment.html" className="chip">
-                <i className="ti ti-arrow-right"></i>URA Payment
-              </a> */}
             </div>
           </div>
         </div>
-        <div className="footer-cta">
-          <p>Get the latest On The Go app now!</p>
-
-          <div className="buttons-wrapper">
-            <a
-              href="https://apps.apple.com/ug/app/i-m-bank-on-the-go-ug/id6478019315"
-              className="store-button appstore-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Download on the Apple App Store"
-            >
-              <div className="apple-icon" aria-hidden="true"></div>
-              <div className="btn-text">
-                <span className="small-line">Download on the</span>
-                <span className="main-line">App Store</span>
-              </div>
-            </a>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.inm.uganda"
-              className="store-button googleplay-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Get it on Google Play"
-            >
-              <div className="google-icon" aria-hidden="true"></div>
-              <div className="btn-text">
-                <span className="small-line">Get it on</span>
-                <span className="main-line">Google Play</span>
-              </div>
-            </a>
-          </div>
-
-          <hr />
-          <div className="info-text">
-            ⚡ Tap a button to download from your device's official store
-          </div>
-        </div>
+        {pageData.mobileAppDownload && (
+          <MobileAppDownload
+            title={pageData.mobileAppDownload.title}
+            infoText={pageData.mobileAppDownload.infoText}
+            appStoreUrl={pageData.mobileAppDownload.appStoreUrl}
+            appStorePrefix={pageData.mobileAppDownload.appStorePrefix}
+            appStoreLabel={pageData.mobileAppDownload.appStoreLabel}
+            playStoreUrl={pageData.mobileAppDownload.playStoreUrl}
+            playStorePrefix={pageData.mobileAppDownload.playStorePrefix}
+            playStoreLabel={pageData.mobileAppDownload.playStoreLabel}
+          />
+        )}
       </main>
       <Footer content={pageData?.footer?.content ?? ""} />
     </>
