@@ -36,7 +36,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 if (!guide) {
   return (
     <>
-      <Nav header={pageData?.header} />
+      <Nav header={pageData?.header} lang={lang} />
 
       <div className="page-layout">
         <main className="page-main">
