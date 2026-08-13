@@ -3,7 +3,7 @@ import qs from "qs";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
-const DEFAULT_REVALIDATE_SECONDS = 300;
+const DEFAULT_REVALIDATE_SECONDS = process.env.DEFAULT_REVALIDATE_SECONDS  ? parseInt(process.env.DEFAULT_REVALIDATE_SECONDS, 10) : 300;
 
 interface FetchOptions {
   populate?: string | string[] | object;
@@ -21,7 +21,7 @@ export type Header = {
   };
 };
 
-export type Link = {
+export type CustomLink = {
   label: string;
   slug: string;
   iconClass?: string;
@@ -52,10 +52,10 @@ export type SupportPage = {
     searchPlaceholder: string;
     searchButtonText: string;
   };
-  links: Link[];
+  links: CustomLink[];
   guidesTitle?: string;
   guides: Guide[];
-  popularArticles: Link[],
+  popularArticles: CustomLink[],
   mobileAppDownload?: MobileAppDownload;
   footer?: {
     content?: string;
@@ -69,7 +69,7 @@ export type Service = {
   title: string;
   description?: string;
   iconClass?: string;
-  services?: Link[];
+  services?: CustomLink[];
 };
 export type ServiceCategory = {
   title: string;
@@ -109,6 +109,17 @@ export type Locale = {
   isDefault?: boolean;
 };
 
+
+type SearchCategory = Pick<ServiceCategory, "title" | "slug"> & {
+  service?: Array<{
+    title?: string;
+    description?: string;
+    services?: CustomLink[];
+  }>;
+};
+
+type SearchGuide = Pick<ServiceGuide, "title" | "description" | "slug">;
+
 /** Makes a cached, authenticated request to the Strapi REST API. */
 async function fetchStrapi<T>(
   endpoint: string,
@@ -131,11 +142,11 @@ async function fetchStrapi<T>(
 
     const queryString = qs.stringify(queryParams, { encodeValuesOnly: true });
     if (queryString) url.search = queryString;
-    console.log(`Fetching Strapi endpoint: ${url.toString()}`); // Debugging line to check the URL
+    // console.log(`Fetching Strapi endpoint: ${url.toString()}`); // Debugging line to check the URL
 
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (STRAPI_TOKEN) headers.Authorization = `Bearer ${STRAPI_TOKEN}`;
-
+console.log("DEFAULT_REVALIDATE_SECONDS:", DEFAULT_REVALIDATE_SECONDS);
     const response = await fetch(url.toString(), {
       method: "GET",
       headers,
@@ -211,15 +222,6 @@ export async function getServiceGuideBySlug(
   return data?.[0] ?? null;
 }
 
-type SearchCategory = Pick<ServiceCategory, "title" | "slug"> & {
-  service?: Array<{
-    title?: string;
-    description?: string;
-    services?: Link[];
-  }>;
-};
-
-type SearchGuide = Pick<ServiceGuide, "title" | "description" | "slug">;
 
 /**
  * Builds a small, cached index from the CMS and filters it in memory. The same
@@ -249,8 +251,8 @@ export async function searchHelpArticles(
     }),
   ]);
 
-  console.log("Fetched categories:", categories);
-  console.log("Fetched guides:", guides);
+  // console.log("Fetched categories:", categories);
+  // console.log("Fetched guides:", guides);
 
   const guidesBySlug = new Map(guides?.map((guide) => [guide.slug, guide]));
   const results = new Map<string, SearchResult>();

@@ -1,4 +1,9 @@
-import { fetchSingleType, getServiceBySlug, Service, type SupportPage } from "@/lib/strapi";
+import {
+  fetchSingleType,
+  getServiceBySlug,
+  Service,
+  type SupportPage,
+} from "@/lib/strapi";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import TopicCard from "@/components/sections/TopicCard";
@@ -13,7 +18,6 @@ export default async function ServicesPage({ params }: Props) {
 
   const service = await getServiceBySlug(category, lang);
 
-
   const pageData = await fetchSingleType<SupportPage>("support-page", {
     // Swap the flat array for an object to control deep population
     populate: {
@@ -26,33 +30,35 @@ export default async function ServicesPage({ params }: Props) {
     },
     locale: lang,
   });
-  console.log("lang:", lang);
-  console.log("service:", service);
-if (!service) {
-  return (
-    <>
-      <Nav header={pageData?.header} lang={lang} />
 
-      <div className="page-layout">
-        <main className="page-main">
-          <div className="not-available">
-            <div className="not-available-card">
-              <i className="ti ti-language-off" style={{ fontSize: 36, marginBottom: 16 }}></i>
-              <h1>Content not available</h1>
-              <p>This service is not available in this language yet.</p>
+  if (!service) {
+    return (
+      <>
+        <Nav header={pageData?.header} lang={lang} />
 
-              <Link href={`/${lang}`} className="back-link">
-                ← Back to support page
-              </Link>
+        <div className="page-layout">
+          <main className="page-main">
+            <div className="not-available">
+              <div className="not-available-card">
+                <i
+                  className="ti ti-language-off"
+                  style={{ fontSize: 36, marginBottom: 16 }}
+                ></i>
+                <h1>Content not available</h1>
+                <p>This service is not available in this language yet.</p>
+
+                <Link href={`/${lang}`} className="back-link">
+                  ← Back to support page
+                </Link>
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
 
-      <Footer content={pageData?.footer?.content?? ""} />
-    </>
-  );
-}
+        <Footer content={pageData?.footer?.content ?? ""} />
+      </>
+    );
+  }
   if (!pageData) return <div>Failed to load data.</div>;
 
   return (
@@ -153,7 +159,7 @@ if (!service) {
         </aside>
       </div>
 
-      <Footer content={pageData?.footer?.content?? ""} />
+      <Footer content={pageData?.footer?.content ?? ""} />
     </>
   );
 }
