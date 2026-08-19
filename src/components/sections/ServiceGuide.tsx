@@ -70,6 +70,14 @@ export default function ServiceGuide({
 
   const currentScreenshot = sortedSteps[currentStep]?.screenshot;
 
+  // Handle absolute Cloudinary URLs vs relative Strapi uploads
+  const imageSrc = currentScreenshot?.url
+    ? currentScreenshot.url.startsWith("http://") ||
+      currentScreenshot.url.startsWith("https://")
+      ? currentScreenshot.url
+      : `${process.env.NEXT_PUBLIC_STRAPI_API_URL || ""}${currentScreenshot.url}`
+    : "#";
+
   return (
     <>
       <h1 className="page-heading">{title}</h1>
@@ -94,10 +102,7 @@ export default function ServiceGuide({
                 {currentScreenshot ? (
                   <div className="slide active">
                     <Image
-                      src={
-                        process.env.NEXT_PUBLIC_STRAPI_API_URL +
-                        currentScreenshot.url
-                      }
+                      src={imageSrc}
                       alt={
                         currentScreenshot.alternativeText ||
                         `Step ${currentStep + 1}`
