@@ -142,11 +142,11 @@ async function fetchStrapi<T>(
 
     const queryString = qs.stringify(queryParams, { encodeValuesOnly: true });
     if (queryString) url.search = queryString;
-    // console.log(`Fetching Strapi endpoint: ${url.toString()}`); // Debugging line to check the URL
 
+    
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (STRAPI_TOKEN) headers.Authorization = `Bearer ${STRAPI_TOKEN}`;
-console.log("DEFAULT_REVALIDATE_SECONDS:", DEFAULT_REVALIDATE_SECONDS);
+
     const response = await fetch(url.toString(), {
       method: "GET",
       headers,
