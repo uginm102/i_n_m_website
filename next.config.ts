@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
         hostname: 'inm-cms.onrender.com',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
     ],
   },
 };
