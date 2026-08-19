@@ -40,13 +40,21 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   });
 
+    // Handle absolute Cloudinary URLs vs relative local paths
+  const rawUrl = pageData?.header?.logo?.url;
+  const logoSrc = rawUrl
+    ? rawUrl.startsWith("http://") || rawUrl.startsWith("https://")
+      ? rawUrl
+      : `${process.env.NEXT_PUBLIC_STRAPI_API_URL || ""}${rawUrl}`
+    : "/favicon.ico";
+
   const logoUrl =
     process.env.NEXT_PUBLIC_STRAPI_API_URL +
     (pageData?.header?.logo?.url ?? "/favicon.ico");
 
   return {
     icons: {
-      icon: logoUrl,
+      icon: logoSrc,
     },
     title: "I&M Bank Help & Support",
     description: "Developed by Gaman",
