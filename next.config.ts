@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
         hostname: 'inmcms-production.up.railway.app',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'inm-cms.onrender.com',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };
