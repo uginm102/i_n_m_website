@@ -91,6 +91,7 @@ export default async function ServicesPage({ params }: Props) {
                   iconClass={item.iconClass}
                   slug={service.slug}
                   links={item.services || []}
+                  lang={lang}
                   defaultOpen={index === 0}
                 />
               ))}

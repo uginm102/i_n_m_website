@@ -26,6 +26,7 @@ export default function TopicCard({
   iconClass,
   links = [],
   slug,
+  lang,
   defaultOpen = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -57,7 +58,7 @@ export default function TopicCard({
           {links.map((link, index) => (
             
             <li key={index}>
-              <Link href={slug ? `/en/services/${slug}/${link?.slug}` : `#${link?.slug}`}>{link.label}</Link>
+              <Link href={slug ? `/${lang}/services/${slug}/${link?.slug}` : `#${link?.slug}`}>{link.label}</Link>
             </li>
           ))}
         </ul>
