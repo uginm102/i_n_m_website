@@ -929,7 +929,7 @@ a:not(.quick-link):hover {
   padding: 5px 8px;
   /* margin: 0 -12px; */
   border-radius: var(--radius-md);
-  border-bottom: 0.5px solid var(--c-border);
+  border-bottom: 0.5px solid var(--blue-light);;
   cursor: pointer;
   transition: background 0.2s;
 }
