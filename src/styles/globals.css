@@ -39,7 +39,7 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 24px;
---font-body: Montserrat;
+  --font-body: Montserrat;
   /* --font-body: "Montserrat","Inter", system-ui, sans-serif; */
   /* --font-display: "Playfair Display", Georgia, serif; */
 
@@ -70,7 +70,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-   :root {
+  :root {
     --blue-light: #007db0;
     --blue: var(--teal);
     --blue-mid: #d4eaf3;
@@ -86,7 +86,7 @@
 
     --c-border: rgba(255, 255, 255, 0.09);
     --c-border-strong: rgba(255, 255, 255, 0.16);
-  } 
+  }
 }
 
 html {
@@ -214,7 +214,7 @@ ul {
   background: transparent;
   font-size: 14px;
   font-family: var(--font-body);
-  color: #0f212f;;
+  color: #0f212f;
 }
 .search-bar input::placeholder {
   color: var(--c-text-tertiary);
@@ -489,13 +489,6 @@ ul {
   align-items: start;
 }
 
-@media (max-width: 720px) {
-  .page-layout {
-    grid-template-columns: 1fr;
-  }
-  /* .page-aside { order: -1; } */
-}
-
 .page-heading {
   font-family: var(--font-display);
   font-size: 26px;
@@ -619,7 +612,7 @@ a {
   transition: background-size 0.3s;
 }
 
-a:not(.quick-link):hover { 
+a:not(.quick-link):hover {
   background-size: 100% 1px;
 }
 
@@ -628,7 +621,8 @@ a:not(.quick-link):hover {
   background: var(--c-bg-primary);
   border: 0.5px solid var(--c-border);
   border-radius: var(--radius-lg);
-  padding: 18px;
+  padding: 18px 5px 18px 15px;
+  width: 250px;
 }
 .aside-heading {
   font-size: 14px;
@@ -845,8 +839,6 @@ a:not(.quick-link):hover {
   align-items: start;
 }
 
-
-
 .phone-notch {
   display: none;
 }
@@ -858,7 +850,7 @@ a:not(.quick-link):hover {
   width: 100%;
   aspect-ratio: 9/16;
   position: relative;
-   padding-bottom: 216.4%;
+  padding-bottom: 216.4%;
 }
 
 /* Dynamic island — floats over the screenshot */
@@ -1395,4 +1387,20 @@ a:not(.quick-link):hover {
 
 .search-result-card:hover .result-arrow {
   color: #1e40af;
+}
+
+@media (max-width: 999px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+  }
+  .page-aside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 681px) {
+    .article-grid {
+      grid-template-columns: 1fr 380px;
+    }
+  }
 }
