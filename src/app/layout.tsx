@@ -1,7 +1,7 @@
 // 'use client';
 import type { Metadata } from "next";
 import { fetchSingleType, type SupportPage } from "@/lib/strapi";
-import { Geist, Geist_Mono, DM_Sans, DM_Serif_Display } from "next/font/google";
+import { Geist, Geist_Mono, DM_Sans, DM_Serif_Display, Montserrat } from "next/font/google";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -27,6 +27,14 @@ const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dm-serif",
   subsets: ["latin"],
   weight: "400",
+});
+
+// Configure Montserrat
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -68,7 +76,7 @@ export default function RootLayout({
   return (
    <html 
       lang="en" 
-      className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${dmSerifDisplay.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${dmSerifDisplay.variable} ${montserrat.variable}`}
     >
       <head>
         <link

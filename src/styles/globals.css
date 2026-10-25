@@ -39,9 +39,9 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 24px;
-
-  --font-body: "Inter", system-ui, sans-serif;
-  --font-display: "Playfair Display", Georgia, serif;
+--font-body: Montserrat;
+  /* --font-body: "Montserrat","Inter", system-ui, sans-serif; */
+  /* --font-display: "Playfair Display", Georgia, serif; */
 
   --shadow-sm: 0 1px 4px rgba(5, 26, 143, 0.07);
   --shadow-md: 0 4px 16px rgba(5, 26, 143, 0.1);
