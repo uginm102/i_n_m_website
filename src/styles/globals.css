@@ -481,11 +481,11 @@ ul {
 
 .page-layout {
   display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 24px;
+  grid-template-columns: 1fr 250px;
+  gap: 10px;
   max-width: 1000px;
   margin: 32px auto;
-  padding: 0 24px 48px;
+  padding: 0 0 48px;
   align-items: start;
 }
 
@@ -696,14 +696,14 @@ a:not(.quick-link):hover {
   margin-bottom: 28px;
 }
 
-.step-item {
+/* .step-item {
   display: flex;
   align-items: flex-start;
   gap: 16px;
   padding: 18px 0;
   border-bottom: 0.5px solid var(--c-border);
   position: relative;
-}
+} */
 .step-item:last-child {
   border-bottom: none;
 }
@@ -840,8 +840,8 @@ a:not(.quick-link):hover {
 /* ── Carousel & Steps Layout ── */
 .article-grid {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 40px;
+  grid-template-columns: 370px 1fr;
+  gap: 20px;
   align-items: start;
 }
 
@@ -888,7 +888,7 @@ a:not(.quick-link):hover {
 }
 
 .phone-frame {
-  width: 200px;
+  width: 100%;
   margin: 0 auto;
   background: #1a1a1a;
   border-radius: 20px;
@@ -904,7 +904,7 @@ a:not(.quick-link):hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .nav-arrow {
@@ -935,7 +935,7 @@ a:not(.quick-link):hover {
   align-items: flex-start;
   gap: 16px;
   padding: 10px 8px;
-  margin: 0 -12px;
+  /* margin: 0 -12px; */
   border-radius: var(--radius-md);
   border-bottom: 0.5px solid var(--c-border);
   cursor: pointer;
