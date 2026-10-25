@@ -724,7 +724,7 @@ a:not(.quick-link):hover {
   margin-bottom: 5px;
 }
 .step-desc {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--c-text-secondary);
   line-height: 1.6;
 }
@@ -945,11 +945,11 @@ a:not(.quick-link):hover {
 }
 
 .step-num {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: #fff;
   color: #000;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   border-radius: 50%;
   display: flex;
@@ -960,14 +960,14 @@ a:not(.quick-link):hover {
 }
 
 .step-title {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--blue-light);
   margin-bottom: 4px;
 }
 
 .step-desc {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--c-text-secondary);
   line-height: 1.5;
 }
