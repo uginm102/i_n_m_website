@@ -963,7 +963,7 @@ a:not(.quick-link):hover {
   font-size: 12px;
   font-weight: 600;
   color: var(--blue-light);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .step-desc {
