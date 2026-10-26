@@ -26,6 +26,7 @@ export type CustomLink = {
   slug: string;
   iconClass?: string;
   url?: string;
+  order?: number;
 };
 
 export type Guide = {
@@ -35,6 +36,7 @@ export type Guide = {
   title: string;
   description?: string;
 };
+
 export type MobileAppDownload = {
   title: string;
   infoText?: string;
@@ -49,6 +51,7 @@ export type MobileAppDownload = {
 export type PopularArticles = {
   links?: CustomLink[];
 }
+
 export type SupportPage = {
   header?: Header;
   hero: {
@@ -75,6 +78,7 @@ export type Service = {
   iconClass?: string;
   services?: CustomLink[];
 };
+
 export type ServiceCategory = {
   title: string;
   slug: string;
@@ -113,7 +117,6 @@ export type Locale = {
   isDefault?: boolean;
 };
 
-
 type SearchCategory = Pick<ServiceCategory, "title" | "slug"> & {
   service?: Array<{
     title?: string;
@@ -150,6 +153,7 @@ async function fetchStrapi<T>(
     
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (STRAPI_TOKEN) headers.Authorization = `Bearer ${STRAPI_TOKEN}`;
+    console.log(`Fetching Strapi endpoint: ${url.toString()}`);
     const response = await fetch(url.toString(), {
       method: "GET",
       headers,
@@ -217,12 +221,12 @@ export async function getPopularArticles(
   const data = await fetchStrapi<PopularArticles>("popular-article", {
     populate: {
       links: {
-        fields: ["label","slug"],
+        fields: ["label","slug","order"],
       },
     },
     locale,
   });
-  //console.log("Fetched popular articles:", data);
+  console.log("Fetched popular articles:", data);
   return data ?? null;
 }
 
