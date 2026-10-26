@@ -3,7 +3,7 @@ import "@/styles/page.module.css";
 import "@/styles/app-store.css";
 
 import HeroBanner from "@/components/sections/HeroBanner";
-import { fetchSingleType, type SupportPage } from "@/lib/strapi";
+import { fetchSingleType, getPopularArticles, type SupportPage } from "@/lib/strapi";
 import Nav from "@/components/Nav";
 
 import Footer from "@/components/Footer";
@@ -34,7 +34,10 @@ export default async function SupportPage({ params }: Props) {
     },
     locale: lang,
   });
-  //console.log("Support Page Data:", pageData); // Debugging line to check the fetched data
+
+  const popularArticles = await getPopularArticles(lang);
+
+
   if (!pageData) return <div>Failed to load data.</div>;
 
   return (
@@ -61,15 +64,14 @@ export default async function SupportPage({ params }: Props) {
           <div className="popular-inner">
             <h3 className="popular-heading">Popular Articles</h3>
             <div className="popular-chips">
-              {pageData.popularArticles.map((article, index) => (
+              {popularArticles?.links?.map((article, index) => (
                 <a
                   key={index}
-                  href={article.url}
+                  href={`/${lang}/${article.slug}`}
                   className="chip"
-                  target="_blank"
-                  rel="noopener noreferrer"
                 >
-                  <i className="ti ti-arrow-right"></i>{article.label}
+                  <i className="ti ti-arrow-right"></i>
+                  {article.label}
                 </a>
               ))}
             </div>

@@ -45,6 +45,10 @@ export type MobileAppDownload = {
   playStorePrefix: string;
   playStoreLabel: string;
 };
+
+export type PopularArticles = {
+  links?: CustomLink[];
+}
 export type SupportPage = {
   header?: Header;
   hero: {
@@ -146,7 +150,6 @@ async function fetchStrapi<T>(
     
     const headers: HeadersInit = { "Content-Type": "application/json" };
     if (STRAPI_TOKEN) headers.Authorization = `Bearer ${STRAPI_TOKEN}`;
-
     const response = await fetch(url.toString(), {
       method: "GET",
       headers,
@@ -206,6 +209,21 @@ export async function getServiceBySlug(
   });
 
   return data?.[0] ?? null;
+}
+
+export async function getPopularArticles(
+  locale = "en"
+): Promise<PopularArticles | null> {
+  const data = await fetchStrapi<PopularArticles>("popular-article", {
+    populate: {
+      links: {
+        fields: ["label","slug"],
+      },
+    },
+    locale,
+  });
+  //console.log("Fetched popular articles:", data);
+  return data ?? null;
 }
 
 export async function getServiceGuideBySlug(
